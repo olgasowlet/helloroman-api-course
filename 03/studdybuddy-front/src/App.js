@@ -1,4 +1,5 @@
 import Root from 'views/Root';
+import { ApolloProvider } from '@apollo/client';
 import Navigation from 'components/Navigation/Navigation';
 import AddStudent from 'views/AddStudent';
 import {
@@ -7,6 +8,7 @@ import {
   Route,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import { apolloClient } from 'api/apolloClient';
 
 const Background = styled.div`
   padding: 40px;
@@ -29,21 +31,23 @@ const Wrapper = styled.div`
 
 function App() {
   return (
-    <Router>
-      <Background>
-        <Wrapper>
-          <Navigation/>
-          <Switch>
-            <Route path="/add-student">
-              <AddStudent/>
-            </Route>
-            <Route path="/">
-              <Root/>
-            </Route>
-          </Switch>
-        </Wrapper>
-      </Background>
-    </Router>
+    <ApolloProvider client={apolloClient}>
+      <Router>
+        <Background>
+          <Wrapper>
+            <Navigation />
+            <Switch>
+              <Route path="/add-student">
+                <AddStudent />
+              </Route>
+              <Route path="/">
+                <Root />
+              </Route>
+            </Switch>
+          </Wrapper>
+        </Background>
+      </Router>
+    </ApolloProvider>
   );
 }
 
